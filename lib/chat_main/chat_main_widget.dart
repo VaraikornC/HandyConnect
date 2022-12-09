@@ -9,6 +9,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+///Chat Page
 class ChatMainWidget extends StatefulWidget {
   const ChatMainWidget({Key? key}) : super(key: key);
 
@@ -26,7 +27,10 @@ class _ChatMainWidgetState extends State<ChatMainWidget> {
     // On page load action.
     SchedulerBinding.instance.addPostFrameCallback((_) async {
       scaffoldConnected = await actions.checkInternetConnection();
+
+      ///If no internet connection
       if (scaffoldConnected == false) {
+        ///Show error message
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
             content: Text(
@@ -47,10 +51,10 @@ class _ChatMainWidgetState extends State<ChatMainWidget> {
 
   @override
   Widget build(BuildContext context) {
+    ///Loading user record
     return StreamBuilder<UsersRecord>(
       stream: UsersRecord.getDocument(currentUserReference!),
       builder: (context, snapshot) {
-        // Customize what your widget looks like when it's loading.
         if (!snapshot.hasData) {
           return Center(
             child: SizedBox(
@@ -63,6 +67,8 @@ class _ChatMainWidgetState extends State<ChatMainWidget> {
           );
         }
         final chatMainUsersRecord = snapshot.data!;
+
+        ///Main chat page
         return Scaffold(
           key: scaffoldKey,
           backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
@@ -80,6 +86,8 @@ class _ChatMainWidgetState extends State<ChatMainWidget> {
             centerTitle: false,
             elevation: 4,
           ),
+
+          ///List of messages
           body: SafeArea(
             child: StreamBuilder<List<ChatsRecord>>(
               stream: queryChatsRecord(
@@ -88,7 +96,6 @@ class _ChatMainWidgetState extends State<ChatMainWidget> {
                     .orderBy('last_message_time', descending: true),
               ),
               builder: (context, snapshot) {
-                // Customize what your widget looks like when it's loading.
                 if (!snapshot.hasData) {
                   return Center(
                     child: SizedBox(
@@ -112,11 +119,15 @@ class _ChatMainWidgetState extends State<ChatMainWidget> {
                     child: Builder(
                       builder: (context) {
                         final allChats = containerChatsRecordList.toList();
+
+                        ///No chat record
                         if (allChats.isEmpty) {
                           return Center(
                             child: EmptyChatWidget(),
                           );
                         }
+
+                        ///List all chat
                         return ListView.builder(
                           padding: EdgeInsets.zero,
                           shrinkWrap: true,
