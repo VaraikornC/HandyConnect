@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
+/// Theme of icon button.
+/// import font from font_awesome_flutter.
 class FlutterFlowIconButton extends StatefulWidget {
   const FlutterFlowIconButton({
     Key? key,

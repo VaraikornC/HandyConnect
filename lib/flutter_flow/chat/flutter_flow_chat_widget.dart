@@ -11,6 +11,7 @@ enum TimeDisplaySetting {
   visibleOnTap,
 }
 
+/// Use to build the GestureDetector.
 class FFChatWidget extends StatelessWidget {
   const FFChatWidget({
     Key? key,
@@ -20,7 +21,8 @@ class FFChatWidget extends StatelessWidget {
     required this.messages,
     required this.onSend,
     this.uploadMediaAction,
-    // Theme settings
+
+    /// ChatWidget Theme settings.
     this.backgroundColor,
     this.timeDisplaySetting = TimeDisplaySetting.visibleOnTap,
     this.currentUserBoxDecoration,
@@ -161,6 +163,7 @@ class FFChatMessage extends StatefulWidget {
   _FFChatMessageState createState() => _FFChatMessageState();
 }
 
+/// Create the state of ChatMessage.
 class _FFChatMessageState extends State<FFChatMessage> {
   bool _showTime = false;
   bool get showTime {

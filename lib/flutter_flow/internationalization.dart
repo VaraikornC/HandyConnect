@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/foundation.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+/// Setup internationalization.
 const _kLocaleStorageKey = '__locale_key__';
 
 class FFLocalizations {

@@ -11,15 +11,17 @@ import '../backend/backend.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import '../../auth/auth_util.dart';
 
+/// To Check the Chat in ChatsRecord.
 bool? hasNoChats(List<ChatsRecord>? allChats) {
   return allChats?.isEmpty ?? true;
 }
 
+/// Combine the List (matches and rejected) together.
 List<String> combineLists(
   List<String>? matches,
   List<String>? rejected,
 ) {
-  // combine two lists
+  /// combine two lists
   final List<String> newList = <String>[""];
 
   if (matches != null) {
@@ -32,6 +34,7 @@ List<String> combineLists(
   return newList;
 }
 
+/// Use to identify which uid will be in the Chat
 List<DocumentReference> createChatUserList(
   DocumentReference userRef1,
   DocumentReference userRef2,

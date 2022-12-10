@@ -24,11 +24,7 @@ class AppStateNotifier extends ChangeNotifier {
   bool showSplashImage = true;
   String? _redirectLocation;
 
-  /// Determines whether the app will refresh and build again when a sign
-  /// in or sign out happens. This is useful when the app is launched or
-  /// on an unexpected logout. However, this must be turned off when we
-  /// intend to sign in/out and then navigate or perform any actions after.
-  /// Otherwise, this will trigger a refresh and interrupt the action(s).
+  /// Determines whether the app will refresh and build again when a signin or sign out happens.
   bool notifyOnAuthChange = true;
 
   bool get loading => user == null || showSplashImage;
@@ -41,19 +37,18 @@ class AppStateNotifier extends ChangeNotifier {
   void setRedirectLocationIfUnset(String loc) => _redirectLocation ??= loc;
   void clearRedirectLocation() => _redirectLocation = null;
 
-  /// Mark as not needing to notify on a sign in / out when we intend
-  /// to perform subsequent actions (such as navigation) afterwards.
   void updateNotifyOnAuthChange(bool notify) => notifyOnAuthChange = notify;
 
   void update(HandyConnectFirebaseUser newUser) {
     initialUser ??= newUser;
     user = newUser;
-    // Refresh the app on auth change unless explicitly marked otherwise.
+
+    /// Refresh the app on auth change
     if (notifyOnAuthChange) {
       notifyListeners();
     }
-    // Once again mark the notifier as needing to update on auth change
-    // (in order to catch sign in / out events).
+
+    /// Once again mark the notifier as needing to update on auth change (in order to catch sign in / out events).
     updateNotifyOnAuthChange(true);
   }
 
@@ -234,8 +229,6 @@ class FFParameters {
 
   Map<String, dynamic> futureParamValues = {};
 
-  // Parameters are empty if the params map is empty or if the only parameter
-  // present is the special extra parameter reserved for the transition info.
   bool get isEmpty =>
       state.allParams.isEmpty ||
       (state.extraMap.length == 1 &&
@@ -270,11 +263,13 @@ class FFParameters {
       return null;
     }
     final param = state.allParams[paramName];
-    // Got parameter from `extras`, so just directly return it.
+
+    /// Got parameter from 'extras'.
     if (param is! String) {
       return param;
     }
-    // Return serialized value.
+
+    /// Return serialized value.
     return deserializeParam<T>(param, type, isList, collectionName);
   }
 }

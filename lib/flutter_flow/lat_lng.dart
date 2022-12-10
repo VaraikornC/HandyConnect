@@ -1,3 +1,4 @@
+/// Use to identify latitude and longitude for place address.
 class LatLng {
   const LatLng(this.latitude, this.longitude);
   final double latitude;

@@ -5,6 +5,8 @@ import 'package:google_fonts/google_fonts.dart';
 
 import 'package:shared_preferences/shared_preferences.dart';
 
+/// Initial Theme using in the Project.
+
 const kThemeModeKey = '__theme_mode__';
 SharedPreferences? _prefs;
 

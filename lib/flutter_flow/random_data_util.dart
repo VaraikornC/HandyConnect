@@ -2,6 +2,8 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 
+/// Functions to Random in the Project.
+
 final _random = Random();
 
 int randomInteger(int min, int max) {
@@ -33,10 +35,10 @@ String randomString(
       (index) => chars[_random.nextInt(chars.length)]).join();
 }
 
-// Random date between 1970 and 2025.
+/// Random date between 1970 and 2025.
 DateTime randomDate() {
-  // Random max must be in range 0 < max <= 2^32.
-  // So we have to generate the time in seconds and then convert to milliseconds.
+  /// Random max must be in range 0 < max <= 2^32.
+  /// So we have to generate the time in seconds and then convert to milliseconds.
   return DateTime.fromMillisecondsSinceEpoch(
       randomInteger(0, 1735689600) * 1000);
 }

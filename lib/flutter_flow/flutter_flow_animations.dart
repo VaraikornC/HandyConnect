@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 
+/// Functions that can Create and Modify Animation in page.
 enum AnimationTrigger {
   onPageLoad,
   onActionTrigger,
