@@ -75,15 +75,17 @@ class _HomePageWidgetState extends State<HomePageWidget> {
       ),
       body: Stack(
         children: [
+          /// Check isDisabled, This is Disabled account.
           if (valueOrDefault<bool>(currentUserDocument?.isDisabled, false) ==
               true)
             AuthUserStreamWidget(
               child: Stack(
                 children: [
                   StreamBuilder<UsersRecord>(
+                    /// Get Document of current user Reference.
                     stream: UsersRecord.getDocument(currentUserReference!),
                     builder: (context, snapshot) {
-                      // Customize what your widget looks like when it's loading.
+                      /// loading Widget style.
                       if (!snapshot.hasData) {
                         return Center(
                           child: SizedBox(
@@ -99,6 +101,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                       return Stack(
                         children: [
                           StreamBuilder<List<PostsRecord>>(
+                            /// Query from posts collection (post_user)
                             stream: queryPostsRecord(
                               queryBuilder: (postsRecord) => postsRecord.where(
                                   'post_user',
@@ -106,7 +109,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                               singleRecord: true,
                             ),
                             builder: (context, snapshot) {
-                              // Customize what your widget looks like when it's loading.
+                              /// loading Widget style.
                               if (!snapshot.hasData) {
                                 return Center(
                                   child: SizedBox(
@@ -129,6 +132,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                 children: [
                                   if (stackPostsRecord != null)
                                     StreamBuilder<List<PostsRecord>>(
+                                      /// Query from posts collection (post_user == time_posted)
                                       stream: queryPostsRecord(
                                         queryBuilder: (postsRecord) =>
                                             postsRecord
@@ -139,7 +143,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                                     descending: true),
                                       ),
                                       builder: (context, snapshot) {
-                                        // Customize what your widget looks like when it's loading.
+                                        /// loading Widget style.
                                         if (!snapshot.hasData) {
                                           return Center(
                                             child: SizedBox(
@@ -156,6 +160,9 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                         List<PostsRecord>
                                             columnPostsRecordList =
                                             snapshot.data!;
+
+                                        /// Check previous query, if have document
+                                        /// then show No Post and CreateEvent Button.
                                         if (columnPostsRecordList.isEmpty) {
                                           return Center(
                                             child: Image.asset(
@@ -167,6 +174,8 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                             ),
                                           );
                                         }
+
+                                        /// Show history of created events and CreateEvent Button.
                                         return SingleChildScrollView(
                                           child: Column(
                                             mainAxisSize: MainAxisSize.max,
@@ -190,6 +199,8 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                                           EdgeInsetsDirectional
                                                               .fromSTEB(
                                                                   8, 0, 8, 0),
+
+                                                      /// Tap on event to view Additional Information.
                                                       child: InkWell(
                                                         onTap: () async {
                                                           await showDialog(
@@ -215,6 +226,8 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                                             },
                                                           );
                                                         },
+
+                                                        /// Information of created events (Ex.Title,Lacation,Date/Time,etc.).
                                                         child: Material(
                                                           color: Colors
                                                               .transparent,
@@ -374,6 +387,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                                                           mainAxisAlignment:
                                                                               MainAxisAlignment.start,
                                                                           children: [
+                                                                            /// Show Title of event.
                                                                             Text(
                                                                               columnPostsRecord.postTitle!,
                                                                               style: FlutterFlowTheme.of(context).title1,
@@ -394,6 +408,8 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                                                               Expanded(
                                                                                 child: Padding(
                                                                                   padding: EdgeInsetsDirectional.fromSTEB(0, 4, 4, 0),
+
+                                                                                  /// Show Location of event.
                                                                                   child: Text(
                                                                                     'Location : ${columnPostsRecord.location}',
                                                                                     style: FlutterFlowTheme.of(context).subtitle1,
@@ -417,6 +433,8 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                                                               Expanded(
                                                                                 child: Padding(
                                                                                   padding: EdgeInsetsDirectional.fromSTEB(0, 4, 4, 0),
+
+                                                                                  /// Show Date of event.
                                                                                   child: Text(
                                                                                     'Date : ${dateTimeFormat('d/M/y', columnPostsRecord.startTime)}',
                                                                                     style: FlutterFlowTheme.of(context).subtitle1,
@@ -440,6 +458,8 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                                                               Expanded(
                                                                                 child: Padding(
                                                                                   padding: EdgeInsetsDirectional.fromSTEB(0, 4, 4, 0),
+
+                                                                                  /// Show Time of event.
                                                                                   child: Text(
                                                                                     'Time : ${dateTimeFormat('jm', columnPostsRecord.startTime)}',
                                                                                     style: FlutterFlowTheme.of(context).subtitle1,
@@ -461,6 +481,8 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                                                                 MainAxisSize.max,
                                                                             mainAxisAlignment:
                                                                                 MainAxisAlignment.spaceEvenly,
+
+                                                                            /// Show Status of event.
                                                                             children: [
                                                                               Text(
                                                                                 'Status',
@@ -468,6 +490,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                                                               ),
                                                                               Stack(
                                                                                 children: [
+                                                                                  /// Show Status (Complete) of event.
                                                                                   if (columnPostsRecord.status == true)
                                                                                     Container(
                                                                                       width: 150,
@@ -501,6 +524,8 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                                                                         ],
                                                                                       ),
                                                                                     ),
+
+                                                                                  /// Show Status (On going) of event.
                                                                                   if (columnPostsRecord.status == false)
                                                                                     Container(
                                                                                       width: 150,
@@ -557,6 +582,9 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                         );
                                       },
                                     ),
+
+                                  /// Check previous query (stackPostsRecord), if empty document
+                                  /// then show widget "No Post and CreateEvent Button".
                                   if (!(stackPostsRecord != null))
                                     Column(
                                       mainAxisSize: MainAxisSize.max,
@@ -566,6 +594,9 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                         ),
                                       ],
                                     ),
+
+                                  /// Check internet connection.
+                                  /// Not connected then show error.
                                   if (stackPostsRecord != null)
                                     Column(
                                       mainAxisSize: MainAxisSize.max,
@@ -607,6 +638,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                                     );
                                                     return;
                                                   } else {
+                                                    /// Connected then goto createEventPage.
                                                     context.pushNamed(
                                                       'createEventPage',
                                                       extra: <String, dynamic>{
@@ -669,11 +701,14 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                 ],
               ),
             ),
+
+          /// Check isDisabled, This is Volunteer account.
           if (valueOrDefault<bool>(currentUserDocument?.isDisabled, false) ==
               false)
             AuthUserStreamWidget(
               child: Stack(
                 children: [
+                  /// Use TabBar to Seperate HelpBoard and History Page.
                   DefaultTabController(
                     length: 2,
                     initialIndex: 0,
@@ -703,8 +738,10 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                         ),
                         Expanded(
                           child: TabBarView(
+                            /// TabBar HelpBoard.
                             children: [
                               StreamBuilder<List<PostsRecord>>(
+                                /// Query from posts collection.
                                 stream: queryPostsRecord(
                                   queryBuilder: (postsRecord) =>
                                       postsRecord.whereNotIn(
@@ -721,7 +758,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                   singleRecord: true,
                                 ),
                                 builder: (context, snapshot) {
-                                  // Customize what your widget looks like when it's loading.
+                                  /// loading Widget style.
                                   if (!snapshot.hasData) {
                                     return Center(
                                       child: SizedBox(
@@ -763,7 +800,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                           singleRecord: true,
                                         ),
                                         builder: (context, snapshot) {
-                                          // Customize what your widget looks like when it's loading.
+                                          /// loading Widget style.
                                           if (!snapshot.hasData) {
                                             return Center(
                                               child: SizedBox(
@@ -808,7 +845,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                                   singleRecord: true,
                                                 ),
                                                 builder: (context, snapshot) {
-                                                  // Customize what your widget looks like when it's loading.
+                                                  /// loading Widget style.
                                                   if (!snapshot.hasData) {
                                                     return Center(
                                                       child: SizedBox(
@@ -826,7 +863,8 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                                   List<PostsRecord>
                                                       stackPostsRecordList =
                                                       snapshot.data!;
-                                                  // Return an empty Container when the document does not exist.
+
+                                                  /// Return an empty Container when the document does not exist.
                                                   if (snapshot.data!.isEmpty) {
                                                     return Container();
                                                   }
@@ -841,6 +879,8 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                                       StreamBuilder<
                                                           List<UsersRecord>>(
                                                         stream:
+
+                                                            /// Query from users collection.
                                                             queryUsersRecord(
                                                           queryBuilder: (usersRecord) =>
                                                               usersRecord.where(
@@ -852,7 +892,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                                         ),
                                                         builder: (context,
                                                             snapshot) {
-                                                          // Customize what your widget looks like when it's loading.
+                                                          /// loading Widget style.
                                                           if (!snapshot
                                                               .hasData) {
                                                             return Center(
@@ -878,6 +918,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                                                       .first
                                                                   : null;
                                                           return Stack(
+                                                            /// Show information of Disabled user that created event.
                                                             children: [
                                                               if (stackPostsRecord !=
                                                                   null)
@@ -892,6 +933,8 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                                                             MainAxisSize.max,
                                                                         mainAxisAlignment:
                                                                             MainAxisAlignment.start,
+
+                                                                        /// Show image
                                                                         children: [
                                                                           Image
                                                                               .network(
@@ -911,6 +954,8 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                                                             10,
                                                                             8,
                                                                             0),
+
+                                                                        /// Tap on info box, show the Additional Information.
                                                                         child:
                                                                             InkWell(
                                                                           onTap:
@@ -1024,6 +1069,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                                                                         mainAxisSize: MainAxisSize.max,
                                                                                         crossAxisAlignment: CrossAxisAlignment.center,
                                                                                         children: [
+                                                                                          /// Show Disabled name.
                                                                                           Text(
                                                                                             'Name : ${stackUsersRecord!.displayName}',
                                                                                             style: FlutterFlowTheme.of(context).title2.override(
@@ -1040,6 +1086,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                                                                         mainAxisSize: MainAxisSize.max,
                                                                                         crossAxisAlignment: CrossAxisAlignment.center,
                                                                                         children: [
+                                                                                          /// Show Disabled location.
                                                                                           Text(
                                                                                             'Location : ${stackPostsRecord!.location}',
                                                                                             style: FlutterFlowTheme.of(context).title2.override(
@@ -1056,6 +1103,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                                                                         mainAxisSize: MainAxisSize.max,
                                                                                         crossAxisAlignment: CrossAxisAlignment.center,
                                                                                         children: [
+                                                                                          /// Show Disabled Date.
                                                                                           Text(
                                                                                             'Date : ${dateTimeFormat('d/M/y', stackPostsRecord!.startTime)}',
                                                                                             style: FlutterFlowTheme.of(context).title2.override(
@@ -1072,6 +1120,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                                                                         mainAxisSize: MainAxisSize.max,
                                                                                         crossAxisAlignment: CrossAxisAlignment.center,
                                                                                         children: [
+                                                                                          /// Show Disabled time.
                                                                                           Text(
                                                                                             'Time : ${dateTimeFormat('jm', stackPostsRecord!.startTime)}',
                                                                                             style: FlutterFlowTheme.of(context).title2.override(
@@ -1103,6 +1152,8 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                                                                 24),
                                                                             child:
                                                                                 FFButtonWidget(
+                                                                              /// Check internet connection.
+                                                                              /// Not connected then show error.
                                                                               onPressed: () async {
                                                                                 if (scaffoldConnected == false) {
                                                                                   ScaffoldMessenger.of(context).showSnackBar(
@@ -1119,6 +1170,8 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                                                                   );
                                                                                   return;
                                                                                 } else {
+                                                                                  /// Connected.
+                                                                                  /// Ask for user confirmation (Decline Button).
                                                                                   var confirmDialogResponse = await showDialog<bool>(
                                                                                         context: context,
                                                                                         builder: (alertDialogContext) {
@@ -1138,6 +1191,8 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                                                                         },
                                                                                       ) ??
                                                                                       false;
+
+                                                                                  /// Update to rejected.
                                                                                   if (confirmDialogResponse) {
                                                                                     final usersUpdateData = {
                                                                                       'rejected': FieldValue.arrayUnion([
@@ -1189,6 +1244,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                                                             child:
                                                                                 FFButtonWidget(
                                                                               onPressed: () async {
+                                                                                /// Check Internet connection.
                                                                                 if (scaffoldConnected == false) {
                                                                                   ScaffoldMessenger.of(context).showSnackBar(
                                                                                     SnackBar(
@@ -1204,6 +1260,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                                                                   );
                                                                                   return;
                                                                                 } else {
+                                                                                  /// Ask for user confirmation (Accept Button).
                                                                                   var confirmDialogResponse = await showDialog<bool>(
                                                                                         context: context,
                                                                                         builder: (alertDialogContext) {
@@ -1223,6 +1280,8 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                                                                         },
                                                                                       ) ??
                                                                                       false;
+
+                                                                                  /// Update to matches.
                                                                                   if (confirmDialogResponse) {
                                                                                     final postsUpdateData = createPostsRecordData(
                                                                                       status: true,
@@ -1240,6 +1299,8 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                                                                     ]),
                                                                                   };
                                                                                   await currentUserReference!.update(usersUpdateData);
+
+                                                                                  ///Chat user match.
                                                                                   if ((currentUserDocument?.matches?.toList() ?? []).contains(stackPostsRecord!.postId)) {
                                                                                     final chatsCreateData = {
                                                                                       ...createChatsRecordData(
@@ -1310,6 +1371,9 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                                   );
                                                 },
                                               ),
+
+                                              /// Check previous query (stackPostsRecord), if empty document
+                                              /// then show widget "No Post".
                                               if (!(stackPostsRecord != null))
                                                 Column(
                                                   mainAxisSize:
@@ -1330,6 +1394,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                 },
                               ),
                               StreamBuilder<List<PostsRecord>>(
+                                /// Query from posts collection.
                                 stream: queryPostsRecord(
                                   queryBuilder: (postsRecord) =>
                                       postsRecord.whereIn(
@@ -1340,7 +1405,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                   singleRecord: true,
                                 ),
                                 builder: (context, snapshot) {
-                                  // Customize what your widget looks like when it's loading.
+                                  /// loading Widget style.
                                   if (!snapshot.hasData) {
                                     return Center(
                                       child: SizedBox(
@@ -1372,7 +1437,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                           singleRecord: true,
                                         ),
                                         builder: (context, snapshot) {
-                                          // Customize what your widget looks like when it's loading.
+                                          /// loading Widget style.
                                           if (!snapshot.hasData) {
                                             return Center(
                                               child: SizedBox(
@@ -1390,7 +1455,8 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                           List<PostsRecord>
                                               stackPostsRecordList =
                                               snapshot.data!;
-                                          // Return an empty Container when the document does not exist.
+
+                                          /// Return an empty Container when the document does not exist.
                                           if (snapshot.data!.isEmpty) {
                                             return Container();
                                           }
@@ -1401,6 +1467,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                           return Stack(
                                             children: [
                                               StreamBuilder<List<UsersRecord>>(
+                                                /// Query from users collection.
                                                 stream: queryUsersRecord(
                                                   queryBuilder: (usersRecord) =>
                                                       usersRecord.where(
@@ -1411,7 +1478,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                                   singleRecord: true,
                                                 ),
                                                 builder: (context, snapshot) {
-                                                  // Customize what your widget looks like when it's loading.
+                                                  /// loading Widget style.
                                                   if (!snapshot.hasData) {
                                                     return Center(
                                                       child: SizedBox(
@@ -1429,7 +1496,8 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                                   List<UsersRecord>
                                                       stackUsersRecordList =
                                                       snapshot.data!;
-                                                  // Return an empty Container when the document does not exist.
+
+                                                  /// Return an empty Container when the document does not exist.
                                                   if (snapshot.data!.isEmpty) {
                                                     return Container();
                                                   }
@@ -1439,25 +1507,30 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                                           ? stackUsersRecordList
                                                               .first
                                                           : null;
+
+                                                  /// TabBar History.
                                                   return Stack(
                                                     children: [
                                                       FutureBuilder<
                                                           List<PostsRecord>>(
-                                                        future: (_firestoreRequestCompleter ??=
-                                                                Completer<
-                                                                    List<
-                                                                        PostsRecord>>()
-                                                                  ..complete(
-                                                                      queryPostsRecordOnce(
-                                                                    queryBuilder: (postsRecord) => postsRecord.whereIn(
-                                                                        'post_id',
-                                                                        (currentUserDocument?.matches?.toList() ??
-                                                                            [])),
-                                                                  )))
+                                                        future: (_firestoreRequestCompleter ??= Completer<
+                                                                List<
+                                                                    PostsRecord>>()
+                                                              ..complete(
+
+                                                                  /// Query from posts collection.
+                                                                  queryPostsRecordOnce(
+                                                                queryBuilder: (postsRecord) => postsRecord.whereIn(
+                                                                    'post_id',
+                                                                    (currentUserDocument
+                                                                            ?.matches
+                                                                            ?.toList() ??
+                                                                        [])),
+                                                              )))
                                                             .future,
                                                         builder: (context,
                                                             snapshot) {
-                                                          // Customize what your widget looks like when it's loading.
+                                                          /// loading Widget style.
                                                           if (!snapshot
                                                               .hasData) {
                                                             return Center(
@@ -1476,6 +1549,9 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                                           List<PostsRecord>
                                                               columnPostsRecordList =
                                                               snapshot.data!;
+
+                                                          /// Check previous query, if do not have documents
+                                                          /// then show "No History".
                                                           if (columnPostsRecordList
                                                               .isEmpty) {
                                                             return Center(
@@ -1490,6 +1566,8 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                                               ),
                                                             );
                                                           }
+
+                                                          /// Slide down to refresh page.
                                                           return RefreshIndicator(
                                                             onRefresh:
                                                                 () async {
@@ -1524,6 +1602,8 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                                                         List<
                                                                             UsersRecord>>(
                                                                       stream:
+
+                                                                          /// Query from users collection.
                                                                           queryUsersRecord(
                                                                         queryBuilder: (usersRecord) => usersRecord.where(
                                                                             'post_id',
@@ -1535,7 +1615,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                                                       builder:
                                                                           (context,
                                                                               snapshot) {
-                                                                        // Customize what your widget looks like when it's loading.
+                                                                        /// loading Widget style.
                                                                         if (!snapshot
                                                                             .hasData) {
                                                                           return Center(
@@ -1564,6 +1644,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                                                             Padding(
                                                                               padding: EdgeInsetsDirectional.fromSTEB(8, 0, 8, 8),
                                                                               child: InkWell(
+                                                                                /// Tap on history box, it will show Additional Information.
                                                                                 onTap: () async {
                                                                                   await showDialog(
                                                                                     context: context,
@@ -1628,6 +1709,8 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                                                                                     decoration: BoxDecoration(
                                                                                                       shape: BoxShape.circle,
                                                                                                     ),
+
+                                                                                                    /// Show disabled image profile.
                                                                                                     child: CachedNetworkImage(
                                                                                                       imageUrl: listFriendUsersRecord!.photoUrl!,
                                                                                                     ),
@@ -1686,6 +1769,8 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                                                                                 Row(
                                                                                                   mainAxisSize: MainAxisSize.max,
                                                                                                   mainAxisAlignment: MainAxisAlignment.start,
+
+                                                                                                  /// Show disabled title of event.
                                                                                                   children: [
                                                                                                     Text(
                                                                                                       columnPostsRecord.postTitle!,
@@ -1701,6 +1786,8 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                                                                                       Expanded(
                                                                                                         child: Padding(
                                                                                                           padding: EdgeInsetsDirectional.fromSTEB(0, 4, 4, 0),
+
+                                                                                                          /// Show disabled location of event.
                                                                                                           child: Text(
                                                                                                             'Location : ${columnPostsRecord.location}',
                                                                                                             style: FlutterFlowTheme.of(context).subtitle1,
@@ -1718,6 +1805,8 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                                                                                       Expanded(
                                                                                                         child: Padding(
                                                                                                           padding: EdgeInsetsDirectional.fromSTEB(0, 4, 4, 0),
+
+                                                                                                          /// Show disabled Date of event.
                                                                                                           child: Text(
                                                                                                             'Date : ${dateTimeFormat('d/M/y', columnPostsRecord.startTime)}',
                                                                                                             style: FlutterFlowTheme.of(context).subtitle1,
@@ -1735,6 +1824,8 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                                                                                       Expanded(
                                                                                                         child: Padding(
                                                                                                           padding: EdgeInsetsDirectional.fromSTEB(0, 4, 4, 0),
+
+                                                                                                          /// Show disabled Time of event.
                                                                                                           child: Text(
                                                                                                             'Time : ${dateTimeFormat('jm', columnPostsRecord.startTime)}',
                                                                                                             style: FlutterFlowTheme.of(context).subtitle1,
@@ -1749,6 +1840,8 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                                                                                   child: Row(
                                                                                                     mainAxisSize: MainAxisSize.max,
                                                                                                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+
+                                                                                                    /// Show disabled Status of event.
                                                                                                     children: [
                                                                                                       Text(
                                                                                                         'Status',
@@ -1756,6 +1849,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                                                                                       ),
                                                                                                       Stack(
                                                                                                         children: [
+                                                                                                          /// Show Status (Complete) of event.
                                                                                                           if (columnPostsRecord.status == true)
                                                                                                             Container(
                                                                                                               width: 150,
@@ -1789,6 +1883,8 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                                                                                                 ],
                                                                                                               ),
                                                                                                             ),
+
+                                                                                                          /// Show Status (On going) of event.
                                                                                                           if (columnPostsRecord.status == false)
                                                                                                             Container(
                                                                                                               width: 150,
@@ -1856,6 +1952,9 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                           );
                                         },
                                       ),
+
+                                      /// Check previous query (stackPostsRecord), if do not have document
+                                      /// then show widget "No History".
                                       if (!(stackPostsRecord != null))
                                         EmptyVHistoryWidget(),
                                     ],
@@ -1876,6 +1975,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
     );
   }
 
+  /// Wait firestore request complete.
   Future waitForFirestoreRequestCompleter({
     double minWait = 0,
     double maxWait = double.infinity,
