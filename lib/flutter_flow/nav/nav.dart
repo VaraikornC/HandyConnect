@@ -58,6 +58,7 @@ class AppStateNotifier extends ChangeNotifier {
   }
 }
 
+/// Create Router to Navigation them.
 GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
       initialLocation: '/',
       debugLogDiagnostics: true,

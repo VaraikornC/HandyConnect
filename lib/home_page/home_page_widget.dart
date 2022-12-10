@@ -30,7 +30,9 @@ class _HomePageWidgetState extends State<HomePageWidget> {
   @override
   void initState() {
     super.initState();
-    // On page load action.
+
+    /// On page load action.
+    /// To check the internet connection.
     SchedulerBinding.instance.addPostFrameCallback((_) async {
       scaffoldConnected = await actions.checkInternetConnection();
       if (scaffoldConnected == false) {
