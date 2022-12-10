@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 
 import 'auth_util.dart';
 
+///Email authentication
 Future<User?> signInWithEmail(
     BuildContext context, String email, String password) async {
   final signInFunc = () => FirebaseAuth.instance
@@ -10,6 +11,7 @@ Future<User?> signInWithEmail(
   return signInOrCreateAccount(context, signInFunc, 'EMAIL');
 }
 
+///Create account with email
 Future<User?> createAccountWithEmail(
     BuildContext context, String email, String password) async {
   final createAccountFunc = () => FirebaseAuth.instance

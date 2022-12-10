@@ -5,6 +5,7 @@ import 'package:google_sign_in/google_sign_in.dart';
 
 import 'auth_util.dart';
 
+/// Use Google account to sign in
 final _googleSignIn = GoogleSignIn();
 
 Future<User?> signInWithGoogle(BuildContext context) async {

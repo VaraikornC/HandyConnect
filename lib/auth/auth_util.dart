@@ -38,17 +38,23 @@ Future<User?> signInOrCreateAccount(
   }
 }
 
+///Sign out
 Future signOut() {
   return FirebaseAuth.instance.signOut();
 }
 
+///Delete accout
 Future deleteUser(BuildContext context) async {
   try {
     if (currentUser?.user == null) {
       print('Error: delete user attempted with no logged in user!');
       return;
     }
+
+    ///Delete
     await currentUser?.user?.delete();
+
+    ///Error while deleting account
   } on FirebaseAuthException catch (e) {
     if (e.code == 'requires-recent-login') {
       ScaffoldMessenger.of(context).hideCurrentSnackBar();
@@ -61,10 +67,14 @@ Future deleteUser(BuildContext context) async {
   }
 }
 
+///Reset password
 Future resetPassword(
     {required String email, required BuildContext context}) async {
   try {
+    ///Send password reset via email
     await FirebaseAuth.instance.sendPasswordResetEmail(email: email);
+
+    ///While error
   } on FirebaseAuthException catch (e) {
     ScaffoldMessenger.of(context).hideCurrentSnackBar();
     ScaffoldMessenger.of(context).showSnackBar(
@@ -72,14 +82,18 @@ Future resetPassword(
     );
     return null;
   }
+
+  ///Show text when successfully sending an email
   ScaffoldMessenger.of(context).showSnackBar(
     SnackBar(content: Text('Password reset email sent')),
   );
 }
 
+///Email verification
 Future sendEmailVerification() async =>
     currentUser?.user?.sendEmailVerification();
 
+///Get user data
 String get currentUserEmail =>
     currentUserDocument?.email ?? currentUser?.user?.email ?? '';
 
@@ -120,6 +134,7 @@ String? _phoneAuthVerificationCode;
 // Set when using phone sign in in web mode (ignored otherwise).
 ConfirmationResult? _webPhoneAuthConfirmationResult;
 
+///Verify by phone number
 Future beginPhoneAuth({
   required BuildContext context,
   required String phoneNumber,
@@ -132,23 +147,12 @@ Future beginPhoneAuth({
     return;
   }
   final completer = Completer<bool>();
-  // If you'd like auto-verification, without the user having to enter the SMS
-  // code manually. Follow these instructions:
-  // * For Android: https://firebase.google.com/docs/auth/android/phone-auth?authuser=0#enable-app-verification (SafetyNet set up)
-  // * For iOS: https://firebase.google.com/docs/auth/ios/phone-auth?authuser=0#start-receiving-silent-notifications
-  // * Finally modify verificationCompleted below as instructed.
+
   await FirebaseAuth.instance.verifyPhoneNumber(
     phoneNumber: phoneNumber,
     timeout: Duration(seconds: 5),
     verificationCompleted: (phoneAuthCredential) async {
       await FirebaseAuth.instance.signInWithCredential(phoneAuthCredential);
-      // If you've implemented auto-verification, navigate to home page or
-      // onboarding page here manually. Uncomment the lines below and replace
-      // DestinationPage() with the desired widget.
-      // await Navigator.push(
-      //   context,
-      //   MaterialPageRoute(builder: (_) => DestinationPage()),
-      // );
     },
     verificationFailed: (e) {
       completer.complete(false);
@@ -167,6 +171,7 @@ Future beginPhoneAuth({
   return completer.future;
 }
 
+///SMS verifying
 Future verifySmsCode({
   required BuildContext context,
   required String smsCode,
