@@ -6,6 +6,7 @@ import 'package:built_value/built_value.dart';
 
 part 'chat_messages_record.g.dart';
 
+///Schema for chat record
 abstract class ChatMessagesRecord
     implements Built<ChatMessagesRecord, ChatMessagesRecordBuilder> {
   static Serializer<ChatMessagesRecord> get serializer =>
@@ -21,6 +22,7 @@ abstract class ChatMessagesRecord
 
   DateTime? get timestamp;
 
+  ///Get chat message information
   @BuiltValueField(wireName: kDocumentReferenceField)
   DocumentReference? get ffRef;
   DocumentReference get reference => ffRef!;
@@ -29,6 +31,7 @@ abstract class ChatMessagesRecord
     ..text = ''
     ..image = '';
 
+  ///Get collections chat_message
   static CollectionReference get collection =>
       FirebaseFirestore.instance.collection('chat_messages');
 
@@ -51,6 +54,7 @@ abstract class ChatMessagesRecord
           {...mapFromFirestore(data), kDocumentReferenceField: reference})!;
 }
 
+///Store chat message information
 Map<String, dynamic> createChatMessagesRecordData({
   DocumentReference? user,
   DocumentReference? chat,

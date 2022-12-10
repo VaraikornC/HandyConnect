@@ -21,6 +21,7 @@ export 'schema/chat_messages_record.dart';
 export 'schema/posts_record.dart';
 
 /// Functions to query UsersRecords (as a Stream and as a Future).
+/// Query User Record
 Stream<List<UsersRecord>> queryUsersRecord({
   Query Function(Query)? queryBuilder,
   int limit = -1,
@@ -63,6 +64,7 @@ Future<FFFirestorePage<UsersRecord>> queryUsersRecordPage({
     );
 
 /// Functions to query ChatsRecords (as a Stream and as a Future).
+/// Query Chat Record
 Stream<List<ChatsRecord>> queryChatsRecord({
   Query Function(Query)? queryBuilder,
   int limit = -1,
@@ -105,6 +107,7 @@ Future<FFFirestorePage<ChatsRecord>> queryChatsRecordPage({
     );
 
 /// Functions to query ChatMessagesRecords (as a Stream and as a Future).
+/// Query Chat Message Record
 Stream<List<ChatMessagesRecord>> queryChatMessagesRecord({
   Query Function(Query)? queryBuilder,
   int limit = -1,
@@ -147,6 +150,7 @@ Future<FFFirestorePage<ChatMessagesRecord>> queryChatMessagesRecordPage({
     );
 
 /// Functions to query PostsRecords (as a Stream and as a Future).
+/// Query Post Record
 Stream<List<PostsRecord>> queryPostsRecord({
   Query Function(Query)? queryBuilder,
   int limit = -1,

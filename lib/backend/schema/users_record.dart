@@ -6,6 +6,7 @@ import 'package:built_value/built_value.dart';
 
 part 'users_record.g.dart';
 
+///Get user information
 abstract class UsersRecord implements Built<UsersRecord, UsersRecordBuilder> {
   static Serializer<UsersRecord> get serializer => _$usersRecordSerializer;
 
@@ -40,6 +41,7 @@ abstract class UsersRecord implements Built<UsersRecord, UsersRecordBuilder> {
   DocumentReference? get ffRef;
   DocumentReference get reference => ffRef!;
 
+  ///Initialize parameter
   static void _initializeBuilder(UsersRecordBuilder builder) => builder
     ..email = ''
     ..displayName = ''
@@ -52,6 +54,7 @@ abstract class UsersRecord implements Built<UsersRecord, UsersRecordBuilder> {
     ..postId = ListBuilder()
     ..isDisabled = false;
 
+  ///Get collection user
   static CollectionReference get collection =>
       FirebaseFirestore.instance.collection('users');
 
@@ -83,6 +86,7 @@ Map<String, dynamic> createUsersRecordData({
   String? password,
   bool? isDisabled,
 }) {
+  ///Store user information
   final firestoreData = serializers.toFirestore(
     UsersRecord.serializer,
     UsersRecord(

@@ -6,6 +6,7 @@ import 'package:built_value/built_value.dart';
 
 part 'chats_record.g.dart';
 
+///Get all chat information
 abstract class ChatsRecord implements Built<ChatsRecord, ChatsRecordBuilder> {
   static Serializer<ChatsRecord> get serializer => _$chatsRecordSerializer;
 
@@ -59,6 +60,7 @@ abstract class ChatsRecord implements Built<ChatsRecord, ChatsRecordBuilder> {
           {...mapFromFirestore(data), kDocumentReferenceField: reference})!;
 }
 
+///Store chat record and information
 Map<String, dynamic> createChatsRecordData({
   DocumentReference? userA,
   DocumentReference? userB,
