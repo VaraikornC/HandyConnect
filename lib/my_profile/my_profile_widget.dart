@@ -56,7 +56,7 @@ class _MyProfileWidgetState extends State<MyProfileWidget>
   @override
   void initState() {
     super.initState();
-    // On page load action.
+    /// Network Error
     SchedulerBinding.instance.addPostFrameCallback((_) async {
       scaffoldConnected = await actions.checkInternetConnection();
       if (scaffoldConnected == false) {
@@ -90,7 +90,7 @@ class _MyProfileWidgetState extends State<MyProfileWidget>
     return StreamBuilder<UsersRecord>(
       stream: UsersRecord.getDocument(currentUserReference!),
       builder: (context, snapshot) {
-        // Customize what your widget looks like when it's loading.
+        /// Profile Picture
         if (!snapshot.hasData) {
           return Center(
             child: SizedBox(

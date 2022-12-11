@@ -59,6 +59,7 @@ class _LoginWidgetState extends State<LoginWidget> {
                 mainAxisSize: MainAxisSize.max,
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
+                  ///HandyConnect Logo
                   Padding(
                     padding: EdgeInsetsDirectional.fromSTEB(0, 20, 0, 20),
                     child: ClipRRect(
@@ -71,6 +72,7 @@ class _LoginWidgetState extends State<LoginWidget> {
                       ),
                     ),
                   ),
+                  ///Email Address Box
                   Padding(
                     padding: EdgeInsetsDirectional.fromSTEB(40, 0, 40, 12),
                     child: Container(
@@ -135,6 +137,7 @@ class _LoginWidgetState extends State<LoginWidget> {
                       ),
                     ),
                   ),
+                  ///Password Box
                   Padding(
                     padding: EdgeInsetsDirectional.fromSTEB(40, 0, 40, 20),
                     child: Container(
@@ -216,6 +219,7 @@ class _LoginWidgetState extends State<LoginWidget> {
                       ),
                     ),
                   ),
+                  ///Login Button
                   FFButtonWidget(
                     onPressed: () async {
                       GoRouter.of(context).prepareAuthEvent();
@@ -248,12 +252,14 @@ class _LoginWidgetState extends State<LoginWidget> {
                       borderRadius: BorderRadius.circular(30),
                     ),
                   ),
+                  ///Below the Login button
                   Padding(
                     padding: EdgeInsetsDirectional.fromSTEB(0, 20, 0, 0),
                     child: Row(
                       mainAxisSize: MainAxisSize.max,
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
+                        ///text show "Don't have an account?"
                         Padding(
                           padding: EdgeInsetsDirectional.fromSTEB(0, 0, 12, 0),
                           child: Text(
@@ -265,6 +271,7 @@ class _LoginWidgetState extends State<LoginWidget> {
                                     ),
                           ),
                         ),
+                        ///Create Account button in Login page
                         FFButtonWidget(
                           onPressed: () async {
                             context.pushNamed(
