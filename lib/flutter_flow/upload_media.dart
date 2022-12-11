@@ -10,6 +10,7 @@ import 'package:mime_type/mime_type.dart';
 import '../auth/auth_util.dart';
 import 'flutter_flow_util.dart';
 
+/// All Function here using to Upload Media.
 const allowedFormats = {'image/png', 'image/jpeg', 'video/mp4', 'image/gif'};
 
 class SelectedMedia {
@@ -206,8 +207,7 @@ Future<SelectedMedia?> selectFile({
 
 String storagePath(String uid, String filePath, bool isVideo, [int? index]) {
   final timestamp = DateTime.now().microsecondsSinceEpoch;
-  // Workaround fixed by https://github.com/flutter/plugins/pull/3685
-  // (not yet in stable).
+
   final ext = isVideo ? 'mp4' : filePath.split('.').last;
   final indexStr = index != null ? '_$index' : '';
   return 'users/$uid/uploads/$timestamp$indexStr.$ext';

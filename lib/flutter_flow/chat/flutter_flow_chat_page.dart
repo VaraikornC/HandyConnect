@@ -10,7 +10,8 @@ class FFChatPage extends StatefulWidget {
     Key? key,
     required this.chatInfo,
     this.allowImages = false,
-    // Theme settings
+
+    /// ChatPage Theme settings.
     this.backgroundColor,
     this.timeDisplaySetting,
     this.currentUserBoxDecoration,
@@ -39,6 +40,7 @@ class FFChatPage extends StatefulWidget {
   _FFChatPageState createState() => _FFChatPageState();
 }
 
+/// Get and Update Messages to the ChatPage.
 class _FFChatPageState extends State<FFChatPage> {
   final scrollController = ScrollController();
   final focusNode = FocusNode();

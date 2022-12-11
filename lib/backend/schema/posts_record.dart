@@ -6,6 +6,7 @@ import 'package:built_value/built_value.dart';
 
 part 'posts_record.g.dart';
 
+///Get post information
 abstract class PostsRecord implements Built<PostsRecord, PostsRecordBuilder> {
   static Serializer<PostsRecord> get serializer => _$postsRecordSerializer;
 
@@ -53,6 +54,7 @@ abstract class PostsRecord implements Built<PostsRecord, PostsRecordBuilder> {
   DocumentReference? get ffRef;
   DocumentReference get reference => ffRef!;
 
+  ///Initialize parameter
   static void _initializeBuilder(PostsRecordBuilder builder) => builder
     ..postPhoto = ''
     ..postTitle = ''
@@ -66,6 +68,7 @@ abstract class PostsRecord implements Built<PostsRecord, PostsRecordBuilder> {
     ..isComplete = false
     ..pid = '';
 
+  ///Get collection posts
   static CollectionReference get collection =>
       FirebaseFirestore.instance.collection('posts');
 
@@ -87,6 +90,7 @@ abstract class PostsRecord implements Built<PostsRecord, PostsRecordBuilder> {
           {...mapFromFirestore(data), kDocumentReferenceField: reference})!;
 }
 
+///Store post record information
 Map<String, dynamic> createPostsRecordData({
   String? postPhoto,
   String? postTitle,

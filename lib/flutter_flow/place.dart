@@ -1,5 +1,6 @@
 import 'lat_lng.dart';
 
+/// Create place address.
 class FFPlace {
   const FFPlace({
     this.latLng = const LatLng(0.0, 0.0),

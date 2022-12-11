@@ -42,6 +42,7 @@ class _ChatDetailsWidgetState extends State<ChatDetailsWidget> {
   void initState() {
     super.initState();
     // On page load action.
+    ///Check internet connection
     SchedulerBinding.instance.addPostFrameCallback((_) async {
       scaffoldConnected = await actions.checkInternetConnection();
       if (scaffoldConnected == false) {
@@ -74,6 +75,7 @@ class _ChatDetailsWidgetState extends State<ChatDetailsWidget> {
     });
   }
 
+  ///All chat in the chat room
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -114,10 +116,13 @@ class _ChatDetailsWidgetState extends State<ChatDetailsWidget> {
       ),
       body: SafeArea(
         child: StreamBuilder<FFChatInfo>(
+          ///Get record
           stream: FFChatManager.instance.getChatInfo(
             otherUserRecord: widget.chatUser,
             chatReference: widget.chatRef,
           ),
+
+          ///Show chat
           builder: (context, snapshot) => snapshot.hasData
               ? FFChatPage(
                   chatInfo: snapshot.data!,

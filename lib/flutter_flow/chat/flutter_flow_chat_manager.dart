@@ -4,6 +4,7 @@ import 'index.dart';
 
 const kMaxChatCacheSize = 5;
 
+///Show the information of Chat.
 class FFChatInfo {
   const FFChatInfo(this.chatRecord, [this.groupMembers]);
   final ChatsRecord chatRecord;
@@ -65,11 +66,10 @@ class FFChatInfo {
 class FFChatManager {
   FFChatManager._();
 
-  // Cache that will ensure chat queries are kept alive. By default we only keep
-  // at most 5 chat streams in the cache.
   static Map<String, Stream<List<ChatMessagesRecord>>> _chatMessages = {};
   static Map<String, List<ChatMessagesRecord>> _chatMessagesCache = {};
-  // Keep a map from user uid to the respective chat document reference.
+
+  /// Keep a map from user uid to the respective chat document reference.
   static Map<String, DocumentReference> _userChats = {};
 
   static FFChatManager? _instance;
@@ -110,7 +110,6 @@ class FFChatManager {
   Stream<FFChatInfo> getChatInfo({
     UsersRecord? otherUserRecord,
     DocumentReference? chatReference,
-    // This is only set from chat preview widget
     ChatsRecord? chatRecord,
   }) {
     assert(
@@ -130,16 +129,14 @@ class FFChatManager {
     return chatStream.asyncMap((chat) async {
       var userRefs = chat.users!.toSet();
       if (chatRecord != null) {
-        // If from chat preview widget, don't bother querying all chat users
-        // as this could be computationally expensive. Instead, take at most
-        // 5, including the user and the user who last sent a message.
         final userAndSender = {
           currentUserReference!,
           if (chat.lastMessageSentBy != null) chat.lastMessageSentBy!
         };
         userRefs = {
           ...userAndSender,
-          // Take at most 3 more besides the user and last sender
+
+          /// Take at most 3 more besides the user and last sender
           ...(userRefs.toSet()..removeAll(userAndSender)).take(3),
         };
       }
@@ -159,7 +156,7 @@ class FFChatManager {
       return chatRef;
     }
 
-    // Determine who is userA and userB deterministically by uid.
+    /// Determine who is userA and userB deterministically by uid.
     final users = [otherUser, currentUserReference!];
     users.sort((a, b) => a.id.compareTo(b.id));
 
@@ -170,12 +167,14 @@ class FFChatManager {
                 .where('users', arrayContains: currentUserReference),
             singleRecord: true)
         .first;
-    // If chat already exists, cache and return it.
+
+    /// If chat already exists then cache and return it.
     if (chat.isNotEmpty) {
       _userChats[otherUser.id] = chat.first.reference;
       return chat.first.reference;
     }
-    // Otherwise, create a chat between these two users.
+
+    /// Otherwise, create a chat between two users.
     chatRef = ChatsRecord.collection.doc();
     await chatRef.set({
       ...createChatsRecordData(
@@ -189,7 +188,8 @@ class FFChatManager {
 
   Future<ChatsRecord?> createChat(List<DocumentReference> otherUsers) async {
     final users = {currentUserReference!, ...otherUsers};
-    // Group needs to have at least 3 members.
+
+    /// Group needs to have at least 3 members.
     if (users.length < 3) {
       return null;
     }
@@ -205,7 +205,8 @@ class FFChatManager {
       return null;
     }
     final newUsers = {...chat.users!, ...users}.toList();
-    // Cannot add users to a 1:1 chat.
+
+    /// Cannot add users to 1:1 chat.
     if (chat.userA != null || chat.userB != null || users.isEmpty) {
       return chat;
     }
@@ -216,7 +217,8 @@ class FFChatManager {
   Future<ChatsRecord> removeGroupMembers(
       ChatsRecord chat, List<DocumentReference> users) async {
     final newUsers = (chat.users!.toSet()..removeAll(users)).toList();
-    // Can't reduce group chat to fewer than 3 members.
+
+    /// Cannot reduce group chat to fewer than 3 members.
     if (newUsers.length < 3) {
       return chat;
     }

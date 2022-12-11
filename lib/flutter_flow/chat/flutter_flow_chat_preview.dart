@@ -12,7 +12,8 @@ class FFChatPreview extends StatelessWidget {
     required this.title,
     required this.userProfilePic,
     required this.onTap,
-    // Theme settings
+
+    /// ChatPreview Theme settings.
     required this.color,
     required this.unreadColor,
     required this.titleTextStyle,
@@ -106,6 +107,7 @@ class FFChatPreview extends StatelessWidget {
   }
 }
 
+/// Set DateFormat.
 String formattedDate(DateTime? dateTime) {
   if (dateTime == null) {
     return 'Unknown';

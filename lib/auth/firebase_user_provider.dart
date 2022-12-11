@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:rxdart/rxdart.dart';
 
+///Connect to Handy connect firebase
 class HandyConnectFirebaseUser {
   HandyConnectFirebaseUser(this.user);
   User? user;
