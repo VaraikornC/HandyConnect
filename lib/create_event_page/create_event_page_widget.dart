@@ -75,6 +75,7 @@ class _CreateEventPageWidgetState extends State<CreateEventPageWidget> {
               borderRadius: 30,
               buttonSize: 48,
               icon: Icon(
+                //close icon
                 Icons.close_rounded,
                 color: Color(0xFFF1F4F8),
                 size: 30,
@@ -128,6 +129,7 @@ class _CreateEventPageWidgetState extends State<CreateEventPageWidget> {
                           Column(
                             mainAxisSize: MainAxisSize.max,
                             children: [
+                              //text field for event's title
                               Padding(
                                 padding: EdgeInsetsDirectional.fromSTEB(
                                     16, 0, 16, 0),
@@ -142,7 +144,7 @@ class _CreateEventPageWidgetState extends State<CreateEventPageWidget> {
                                           controller: eventTitleController,
                                           obscureText: false,
                                           decoration: InputDecoration(
-                                            labelText: 'Title',
+                                            labelText: 'Title', //title of event
                                             labelStyle: FlutterFlowTheme.of(
                                                     context)
                                                 .title3
@@ -209,7 +211,8 @@ class _CreateEventPageWidgetState extends State<CreateEventPageWidget> {
                                           textAlign: TextAlign.start,
                                           validator: (val) {
                                             if (val == null || val.isEmpty) {
-                                              return 'Title is required';
+                                              //if user leave the field blank
+                                              return 'Title is required'; //notify user to enter the field
                                             }
 
                                             if (val.length < 1) {
@@ -224,6 +227,7 @@ class _CreateEventPageWidgetState extends State<CreateEventPageWidget> {
                                   ],
                                 ),
                               ),
+                              //text field for additional details
                               Padding(
                                 padding: EdgeInsetsDirectional.fromSTEB(
                                     16, 0, 16, 0),
@@ -239,7 +243,7 @@ class _CreateEventPageWidgetState extends State<CreateEventPageWidget> {
                                           obscureText: false,
                                           decoration: InputDecoration(
                                             hintText:
-                                                'Enter Additional Info here...',
+                                                'Enter Additional Info here...', //text field for additional details
                                             hintStyle:
                                                 FlutterFlowTheme.of(context)
                                                     .bodyText1
@@ -309,6 +313,7 @@ class _CreateEventPageWidgetState extends State<CreateEventPageWidget> {
                                   ],
                                 ),
                               ),
+                              //text field for location name
                               Padding(
                                 padding: EdgeInsetsDirectional.fromSTEB(
                                     16, 0, 16, 0),
@@ -390,7 +395,8 @@ class _CreateEventPageWidgetState extends State<CreateEventPageWidget> {
                                           textAlign: TextAlign.start,
                                           validator: (val) {
                                             if (val == null || val.isEmpty) {
-                                              return 'Location is required';
+                                              //location is required
+                                              return 'Location is required'; //if user leave the field empty, UI will notify user to fill
                                             }
 
                                             if (val.length < 1) {
@@ -405,6 +411,7 @@ class _CreateEventPageWidgetState extends State<CreateEventPageWidget> {
                                   ],
                                 ),
                               ),
+                              //date and time selection part
                               Padding(
                                 padding: EdgeInsetsDirectional.fromSTEB(
                                     16, 12, 16, 0),
@@ -414,6 +421,7 @@ class _CreateEventPageWidgetState extends State<CreateEventPageWidget> {
                                       MainAxisAlignment.spaceBetween,
                                   children: [
                                     Padding(
+                                      //field for the start date and time
                                       padding: EdgeInsetsDirectional.fromSTEB(
                                           0, 0, 8, 0),
                                       child: InkWell(
@@ -490,6 +498,7 @@ class _CreateEventPageWidgetState extends State<CreateEventPageWidget> {
                                       ),
                                     ),
                                     InkWell(
+                                      //Field for the end date and time
                                       onTap: () async {
                                         await DatePicker.showDateTimePicker(
                                           context,
@@ -561,6 +570,7 @@ class _CreateEventPageWidgetState extends State<CreateEventPageWidget> {
                               ),
                             ],
                           ),
+                          //Create Event button part
                           Padding(
                             padding:
                                 EdgeInsetsDirectional.fromSTEB(0, 30, 0, 16),
@@ -634,6 +644,7 @@ class _CreateEventPageWidgetState extends State<CreateEventPageWidget> {
                                     return;
                                   }
                                 }
+                                //confirmation popup dialog before create event
 
                                 var confirmDialogResponse =
                                     await showDialog<bool>(
