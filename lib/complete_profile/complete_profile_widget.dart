@@ -82,6 +82,7 @@ class _CompleteProfileWidgetState extends State<CompleteProfileWidget> {
         centerTitle: false,
         elevation: 0,
       ),
+      //Registor form for new profile
       body: Form(
         key: formKey,
         autovalidateMode: AutovalidateMode.disabled,
@@ -109,6 +110,7 @@ class _CompleteProfileWidgetState extends State<CompleteProfileWidget> {
                   ),
                 ),
               ),
+              //input field for profile image URL
               Padding(
                 padding: EdgeInsetsDirectional.fromSTEB(20, 20, 20, 0),
                 child: TextFormField(
@@ -156,6 +158,7 @@ class _CompleteProfileWidgetState extends State<CompleteProfileWidget> {
                   keyboardType: TextInputType.url,
                 ),
               ),
+              //input field for profile name
               Padding(
                 padding: EdgeInsetsDirectional.fromSTEB(20, 20, 20, 0),
                 child: TextFormField(
@@ -210,6 +213,7 @@ class _CompleteProfileWidgetState extends State<CompleteProfileWidget> {
                   },
                 ),
               ),
+              //input field for phone number
               Padding(
                 padding: EdgeInsetsDirectional.fromSTEB(20, 20, 20, 0),
                 child: TextFormField(
@@ -264,6 +268,7 @@ class _CompleteProfileWidgetState extends State<CompleteProfileWidget> {
                   },
                 ),
               ),
+              //switch on-off to identify if that new user profile is disabled or not
               Padding(
                 padding: EdgeInsetsDirectional.fromSTEB(20, 20, 20, 0),
                 child: SwitchListTile.adaptive(
@@ -286,11 +291,13 @@ class _CompleteProfileWidgetState extends State<CompleteProfileWidget> {
                   ),
                 ),
               ),
+              //New profile saving button
               Padding(
                 padding: EdgeInsetsDirectional.fromSTEB(0, 24, 0, 0),
                 child: FFButtonWidget(
                   onPressed: () async {
                     if (scaffoldConnected == false) {
+                      //if there's no internet connection, Show error snackbar
                       ScaffoldMessenger.of(context).showSnackBar(
                         SnackBar(
                           content: Text(
@@ -311,9 +318,9 @@ class _CompleteProfileWidgetState extends State<CompleteProfileWidget> {
                         return;
                       }
                     }
-
                     final usersUpdateData = {
                       ...createUsersRecordData(
+                        //create set of user profile data
                         photoUrl: valueOrDefault<String>(
                           imageURLController!.text,
                           'https://static.vecteezy.com/system/resources/previews/000/420/303/large_2x/avatar-icon-vector-illustration.jpg',
@@ -326,7 +333,8 @@ class _CompleteProfileWidgetState extends State<CompleteProfileWidget> {
                       'matches': FieldValue.arrayUnion(['']),
                       'rejected': FieldValue.arrayUnion(['']),
                     };
-                    await currentUserReference!.update(usersUpdateData);
+                    await currentUserReference!.update(
+                        usersUpdateData); //update to new record in Firestore
 
                     context.pushNamed('homePage');
                   },
