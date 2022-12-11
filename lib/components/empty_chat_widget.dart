@@ -21,14 +21,18 @@ class _EmptyChatWidgetState extends State<EmptyChatWidget> {
           height: 200,
           child: Stack(
             children: [
-              if (Theme.of(context).brightness == Brightness.dark)
+              if (Theme.of(context).brightness ==
+                  Brightness
+                      .dark) //if theme is dark, logo will change according to dark theme
                 Image.asset(
                   'assets/images/chatsEmptyDark@2x.png',
                   width: 300,
                   height: 200,
                   fit: BoxFit.contain,
                 ),
-              if (!(Theme.of(context).brightness == Brightness.dark))
+              if (!(Theme.of(context).brightness ==
+                  Brightness
+                      .dark)) ////if theme is light, logo will change according to light theme
                 Image.asset(
                   'assets/images/chatEmpty@2x.png',
                   width: 300,
@@ -38,6 +42,9 @@ class _EmptyChatWidgetState extends State<EmptyChatWidget> {
             ],
           ),
         ),
+        //There will be 2 lines of text under the empty chat logo:
+        //No Messages
+        //Let's Talk together wit your partner
         Padding(
           padding: EdgeInsetsDirectional.fromSTEB(0, 24, 0, 0),
           child: Row(
