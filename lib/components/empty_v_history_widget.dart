@@ -3,6 +3,10 @@ import '../flutter_flow/flutter_flow_util.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+///////
+///The codes below are history of matching in volunteer role
+///////
+
 class EmptyVHistoryWidget extends StatefulWidget {
   const EmptyVHistoryWidget({Key? key}) : super(key: key);
 
@@ -21,7 +25,9 @@ class _EmptyVHistoryWidgetState extends State<EmptyVHistoryWidget> {
           height: 200,
           child: Stack(
             children: [
+              //Logo in the back ground will be change according to theme
               if (Theme.of(context).brightness == Brightness.dark)
+                //if theme is dark, dark style logo will be applied
                 Image.asset(
                   'assets/images/chatsEmptyDark@2x.png',
                   width: 300,
@@ -29,6 +35,7 @@ class _EmptyVHistoryWidgetState extends State<EmptyVHistoryWidget> {
                   fit: BoxFit.contain,
                 ),
               if (!(Theme.of(context).brightness == Brightness.dark))
+                //if theme is light, light style logo will be applied
                 Image.asset(
                   'assets/images/chatEmpty@2x.png',
                   width: 300,
@@ -38,6 +45,9 @@ class _EmptyVHistoryWidgetState extends State<EmptyVHistoryWidget> {
             ],
           ),
         ),
+        //There will be 2 lines of text under the empty chat logo:
+        //No History
+        //Seems you don't have any history here.
         Padding(
           padding: EdgeInsetsDirectional.fromSTEB(0, 24, 0, 0),
           child: Row(
