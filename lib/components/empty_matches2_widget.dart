@@ -5,6 +5,10 @@ import '../custom_code/actions/index.dart' as actions;
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+///////
+///The code below is homepage of disabled person role when there are no event created.
+///////
+
 class EmptyMatches2Widget extends StatefulWidget {
   const EmptyMatches2Widget({Key? key}) : super(key: key);
 
@@ -25,6 +29,7 @@ class _EmptyMatches2WidgetState extends State<EmptyMatches2Widget> {
           height: 200,
           child: Stack(
             children: [
+              //if theme is dark, logo will change according to dark theme
               if (Theme.of(context).brightness == Brightness.dark)
                 Image.asset(
                   'assets/images/chatsEmptyDark@2x.png',
@@ -32,6 +37,7 @@ class _EmptyMatches2WidgetState extends State<EmptyMatches2Widget> {
                   height: 200,
                   fit: BoxFit.contain,
                 ),
+              //if theme is light, logo will change according to light theme
               if (!(Theme.of(context).brightness == Brightness.dark))
                 Image.asset(
                   'assets/images/chatEmpty@2x.png',
@@ -42,6 +48,9 @@ class _EmptyMatches2WidgetState extends State<EmptyMatches2Widget> {
             ],
           ),
         ),
+        //There will be 2 lines of text under the empty chat logo:
+        //No Post
+        //Seems you don't have any post here, please create post.
         Padding(
           padding: EdgeInsetsDirectional.fromSTEB(0, 24, 0, 0),
           child: Row(
@@ -82,6 +91,8 @@ class _EmptyMatches2WidgetState extends State<EmptyMatches2Widget> {
             ],
           ),
         ),
+
+        ///Codes below are "Create Event" Button
         Padding(
           padding: EdgeInsetsDirectional.fromSTEB(12, 4, 12, 0),
           child: Row(
@@ -93,8 +104,10 @@ class _EmptyMatches2WidgetState extends State<EmptyMatches2Widget> {
                 child: FFButtonWidget(
                   onPressed: () async {
                     var _shouldSetState = false;
+                    //Check for the internet connection
                     scaffoldConnected = await actions.checkInternetConnection();
                     _shouldSetState = true;
+                    //if no internet connection show Error
                     if (scaffoldConnected == false) {
                       ScaffoldMessenger.of(context).showSnackBar(
                         SnackBar(
@@ -112,6 +125,8 @@ class _EmptyMatches2WidgetState extends State<EmptyMatches2Widget> {
                       if (_shouldSetState) setState(() {});
                       return;
                     } else {
+                      //if Internet connection is available
+                      //link to createEventPage
                       context.pushNamed(
                         'createEventPage',
                         extra: <String, dynamic>{
