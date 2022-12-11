@@ -12,6 +12,7 @@ class RegisterWidget extends StatefulWidget {
   _RegisterWidgetState createState() => _RegisterWidgetState();
 }
 
+/// Email address, Password, Confirm password
 class _RegisterWidgetState extends State<RegisterWidget> {
   TextEditingController? confirmPasswordController;
 
@@ -47,6 +48,7 @@ class _RegisterWidgetState extends State<RegisterWidget> {
       backgroundColor: FlutterFlowTheme.of(context).dark900,
       body: Align(
         alignment: AlignmentDirectional(-0.14, -0.08),
+        ///Background
         child: Container(
           width: double.infinity,
           height: double.infinity,
@@ -66,6 +68,7 @@ class _RegisterWidgetState extends State<RegisterWidget> {
                 mainAxisSize: MainAxisSize.max,
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
+                  ///HandyConnect Logo
                   Padding(
                     padding: EdgeInsetsDirectional.fromSTEB(0, 20, 0, 24),
                     child: ClipRRect(
@@ -87,6 +90,7 @@ class _RegisterWidgetState extends State<RegisterWidget> {
                         color: FlutterFlowTheme.of(context).primaryBackground,
                         borderRadius: BorderRadius.circular(25),
                       ),
+                      ///Email address Box
                       child: Padding(
                         padding: EdgeInsetsDirectional.fromSTEB(12, 0, 20, 0),
                         child: TextFormField(
@@ -147,6 +151,7 @@ class _RegisterWidgetState extends State<RegisterWidget> {
                       ),
                     ),
                   ),
+                  /// Password Box
                   Padding(
                     padding: EdgeInsetsDirectional.fromSTEB(40, 0, 40, 12),
                     child: Container(
@@ -228,6 +233,7 @@ class _RegisterWidgetState extends State<RegisterWidget> {
                       ),
                     ),
                   ),
+                  ///Confirm password Box
                   Padding(
                     padding: EdgeInsetsDirectional.fromSTEB(40, 0, 40, 20),
                     child: Container(
@@ -310,6 +316,7 @@ class _RegisterWidgetState extends State<RegisterWidget> {
                       ),
                     ),
                   ),
+                  ///Password and Confirm password not the same input.
                   FFButtonWidget(
                     onPressed: () async {
                       GoRouter.of(context).prepareAuthEvent();
@@ -353,12 +360,14 @@ class _RegisterWidgetState extends State<RegisterWidget> {
                       borderRadius: BorderRadius.circular(30),
                     ),
                   ),
+                  ///Below input boxes
                   Padding(
                     padding: EdgeInsetsDirectional.fromSTEB(0, 20, 0, 0),
                     child: Row(
                       mainAxisSize: MainAxisSize.max,
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
+                        /// Text show Already have an account?
                         Padding(
                           padding: EdgeInsetsDirectional.fromSTEB(0, 0, 12, 0),
                           child: Text(
@@ -366,6 +375,7 @@ class _RegisterWidgetState extends State<RegisterWidget> {
                             style: FlutterFlowTheme.of(context).bodyText1,
                           ),
                         ),
+                        ///Login Button in Create account page
                         FFButtonWidget(
                           onPressed: () async {
                             context.goNamed(
