@@ -102,7 +102,6 @@ class NavBarPage extends StatefulWidget {
   _NavBarPageState createState() => _NavBarPageState();
 }
 
-/// This is the private State class that goes with NavBarPage.
 class _NavBarPageState extends State<NavBarPage> {
   String _currentPageName = 'homePage';
   late Widget? _currentPage;
@@ -114,6 +113,7 @@ class _NavBarPageState extends State<NavBarPage> {
     _currentPage = widget.page;
   }
 
+  /// Nav bar
   @override
   Widget build(BuildContext context) {
     final tabs = {
@@ -137,6 +137,7 @@ class _NavBarPageState extends State<NavBarPage> {
         showUnselectedLabels: false,
         type: BottomNavigationBarType.fixed,
         items: <BottomNavigationBarItem>[
+          /// Home icon
           BottomNavigationBarItem(
             icon: Icon(
               Icons.home_outlined,
@@ -145,6 +146,7 @@ class _NavBarPageState extends State<NavBarPage> {
             label: '',
             tooltip: '',
           ),
+          /// Chat icon
           BottomNavigationBarItem(
             icon: Icon(
               Icons.chat_bubble_outline,
@@ -157,6 +159,7 @@ class _NavBarPageState extends State<NavBarPage> {
             label: '',
             tooltip: '',
           ),
+          /// Profile icon
           BottomNavigationBarItem(
             icon: Icon(
               Icons.account_circle_outlined,
