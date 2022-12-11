@@ -124,6 +124,7 @@ class _EditProfileWidgetState extends State<EditProfileWidget> {
                               ),
                             ),
                             Row(
+                              //////Email address field
                               mainAxisSize: MainAxisSize.max,
                               children: [
                                 Expanded(
@@ -208,6 +209,7 @@ class _EditProfileWidgetState extends State<EditProfileWidget> {
                                 ),
                               ],
                             ),
+                            //Name field
                             Row(
                               mainAxisSize: MainAxisSize.max,
                               children: [
@@ -289,6 +291,7 @@ class _EditProfileWidgetState extends State<EditProfileWidget> {
                                 ),
                               ],
                             ),
+                            //Phone number field
                             Row(
                               mainAxisSize: MainAxisSize.max,
                               children: [
@@ -371,6 +374,7 @@ class _EditProfileWidgetState extends State<EditProfileWidget> {
                                 ),
                               ],
                             ),
+                            //saving change button part
                             Padding(
                               padding:
                                   EdgeInsetsDirectional.fromSTEB(0, 20, 0, 0),
