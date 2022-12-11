@@ -56,7 +56,8 @@ class _MyProfileWidgetState extends State<MyProfileWidget>
   @override
   void initState() {
     super.initState();
-    /// Network Error
+
+    ///check internet connection
     SchedulerBinding.instance.addPostFrameCallback((_) async {
       scaffoldConnected = await actions.checkInternetConnection();
       if (scaffoldConnected == false) {
@@ -88,9 +89,9 @@ class _MyProfileWidgetState extends State<MyProfileWidget>
   @override
   Widget build(BuildContext context) {
     return StreamBuilder<UsersRecord>(
+      ///Get user record
       stream: UsersRecord.getDocument(currentUserReference!),
       builder: (context, snapshot) {
-        /// Profile Picture
         if (!snapshot.hasData) {
           return Center(
             child: SizedBox(
@@ -103,6 +104,8 @@ class _MyProfileWidgetState extends State<MyProfileWidget>
           );
         }
         final myProfileUsersRecord = snapshot.data!;
+
+        ///Profile Screen
         return Scaffold(
           key: scaffoldKey,
           backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
