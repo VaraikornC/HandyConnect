@@ -28,7 +28,8 @@ class _CompleteProfileWidgetState extends State<CompleteProfileWidget> {
   @override
   void initState() {
     super.initState();
-    // On page load action.
+    // Check internet connection
+    //if no internet connection, display Error message.
     SchedulerBinding.instance.addPostFrameCallback((_) async {
       scaffoldConnected = await actions.checkInternetConnection();
       if (scaffoldConnected == false) {
