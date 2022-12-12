@@ -101,7 +101,6 @@ class _CreateEventPageWidgetState extends State<CreateEventPageWidget> {
                   singleRecord: true,
                 ),
                 builder: (context, snapshot) {
-                  // Customize what your widget looks like when it's loading.
                   if (!snapshot.hasData) {
                     return Center(
                       child: SizedBox(

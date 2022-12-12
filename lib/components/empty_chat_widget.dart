@@ -44,7 +44,7 @@ class _EmptyChatWidgetState extends State<EmptyChatWidget> {
         ),
         //There will be 2 lines of text under the empty chat logo:
         //No Messages
-        //Let's Talk together wit your partner
+        //Let's Talk together with your partner
         Padding(
           padding: EdgeInsetsDirectional.fromSTEB(0, 24, 0, 0),
           child: Row(
